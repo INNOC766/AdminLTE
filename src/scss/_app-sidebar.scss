@@ -78,6 +78,7 @@
   padding-right: $lte-sidebar-padding-x;
   padding-bottom: $lte-sidebar-padding-y;
   padding-left: $lte-sidebar-padding-x;
+  overscroll-behavior: contain;
   @include scrollbar-color-gray();
   @include scrollbar-width-thin();
 
@@ -140,7 +141,10 @@
 
   // Section Heading
   .nav-header {
+    display: inline;
+    overflow: hidden;
     color: var(--#{$lte-prefix}sidebar-header-color);
+    text-overflow: ellipsis;
     background-color: inherit;
   }
 
@@ -225,8 +229,11 @@
   }
 
   .nav-header {
+    position: relative;
+    width: 100%;
     padding: $nav-link-padding-y ($nav-link-padding-y * 1.5);
     font-size: .9rem;
+    @include transition(width $lte-transition-fn $lte-transition-speed);
   }
 
   // Tree view menu
@@ -397,55 +404,59 @@
     animation-fill-mode: both;
   }
 
-  .app-sidebar:hover {
-    min-width: var(--#{$lte-prefix}sidebar-width);
-    max-width: var(--#{$lte-prefix}sidebar-width);
+  &:not(.sidebar-without-hover) {
+    .app-sidebar:hover {
+      min-width: var(--#{$lte-prefix}sidebar-width);
+      max-width: var(--#{$lte-prefix}sidebar-width);
 
-    .sidebar-menu .nav-header {
-      display: inline-block;
-    }
+      .sidebar-menu .nav-header {
+        display: inline;
+      }
 
-    .sidebar-menu .nav-link {
-      width: auto;
-    }
+      .sidebar-menu .nav-link {
+        width: auto;
+      }
 
-    .sidebar-menu .nav-link p,
-    .brand-text,
-    .logo-xl {
-      width: auto;
-      margin-left: 0;
-      visibility: visible;
-      animation-name: fadeIn;
-      animation-duration: $lte-transition-speed;
-      animation-fill-mode: both;
-    }
+      .sidebar-menu .nav-link p,
+      .brand-text,
+      .logo-xl {
+        width: auto;
+        margin-left: 0;
+        visibility: visible;
+        animation-name: fadeIn;
+        animation-duration: $lte-transition-speed;
+        animation-fill-mode: both;
+      }
 
-    .brand-text {
-      display: inline;
-      max-width: inherit;
-      margin-left: .5rem;
-      animation-name: fadeIn;
-      animation-duration: $lte-transition-speed;
-      animation-fill-mode: both;
-    }
-    .nav-badge,
-    .nav-arrow {
-      display: inline-block;
-      visibility: visible;
-      animation-name: fadeIn;
-      animation-duration: $lte-transition-speed;
-      animation-fill-mode: both;
-      animation-delay: $lte-transition-speed;
-    }
+      .brand-text {
+        display: inline;
+        max-width: inherit;
+        margin-left: .5rem;
+        animation-name: fadeIn;
+        animation-duration: $lte-transition-speed;
+        animation-fill-mode: both;
+      }
 
-    .nav-link p {
-      padding-left: .5rem;
-    }
-    .logo-xs {
-      visibility: hidden;
-      animation-name: fadeOut;
-      animation-duration: $lte-transition-speed;
-      animation-fill-mode: both;
+      .nav-badge,
+      .nav-arrow {
+        display: inline-block;
+        visibility: visible;
+        animation-name: fadeIn;
+        animation-duration: $lte-transition-speed;
+        animation-fill-mode: both;
+        animation-delay: $lte-transition-speed;
+      }
+
+      .nav-link p {
+        padding-left: .5rem;
+      }
+
+      .logo-xs {
+        visibility: hidden;
+        animation-name: fadeOut;
+        animation-duration: $lte-transition-speed;
+        animation-fill-mode: both;
+      }
     }
   }
 }

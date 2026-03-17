@@ -9,26 +9,27 @@
 **AdminLTE** is a fully responsive administration template. Based on **[Bootstrap 5](https://getbootstrap.com/)** framework and also the JavaScript plugins.
 Highly customizable and easy to use. Fits many screen resolutions from small mobile devices to large desktops.
 
-## What's New in v4.0.0-rc4
+## What's New in v4.0.0-rc7
 
-**Latest Release with Enhanced Performance & Updated Dependencies** - Fresh improvements for better development experience:
+**Bug Fixes, Refactors & Documentation** - Major plugin refactors, complete JS documentation, and new features:
 
-- **Updated Dependencies** - 8 npm packages updated to latest versions for improved security and performance
-- **Refined Mobile Image Loading** - Streamlined path resolution by removing JavaScript runtime fixes
-- **Better Performance** - Images now load faster with build-time path generation instead of runtime corrections
-- **Latest Tooling** - Updated TypeScript, ESLint, Prettier, Astro, and build tools
-- **Zero Runtime Errors** - Eliminated console errors from JavaScript path corrections
+- **Layout & PushMenu Refactors** - Single-instance architecture, proper responsive logic, configurable via data attributes
+- **Sidebar Without Hover** - New `sidebar-without-hover` class to keep collapsed sidebar from expanding on hover
+- **Complete JS Documentation** - All 7 JavaScript components now fully documented
+- **Astro 6.0.0** - Upgraded to latest Astro with Vite 7 and Shiki 4
+- **Bug Fixes** - Fixed footer with layout-fixed, mobile scroll chaining, print layout, modal escape key, pagination borders
 
 **Key Improvements:**
-- ✅ All images use relative paths generated at build time
-- ✅ No more JavaScript runtime path fixes causing console errors
-- ✅ Faster image loading with optimal path resolution
-- ✅ Latest development tools and security updates
-- ✅ Production-ready with enhanced stability
+
+- Fixed footer now works correctly with `layout-fixed` (#5805)
+- Sidebar no longer causes page scroll chaining on mobile (#5864)
+- Print layout shows both sidebar and content (#5996)
+- Sidebar persistence is now opt-in via `data-enable-persistence="true"` (**breaking change**)
+- All dependencies updated to latest versions
 
 **Install the latest:**
 ```bash
-npm install admin-lte@4.0.0-rc4
+npm install admin-lte@4.0.0-rc7
 ```
 
 See the [CHANGELOG.md](CHANGELOG.md) for complete details.
@@ -71,7 +72,7 @@ To build for production:
 
 ## Browser Support
 
-AdminLTE supports all modern browsers with the latest Bootstrap 5.3.7:
+AdminLTE supports all modern browsers with the latest Bootstrap 5.3.8:
 - Chrome (latest)
 - Firefox (latest)
 - Safari (latest)
@@ -85,6 +86,32 @@ AdminLTE v4 build scripts work cross-platform:
 - **Linux** - Bash, Zsh, and other Unix shells
 
 All npm scripts use cross-platform utilities to ensure consistent behavior across different operating systems.
+
+## Security & Production Deployment
+
+### Important Security Notice
+
+AdminLTE is a **UI template** - when deploying to production, follow these critical guidelines:
+
+**What to Deploy:**
+- Only compiled production assets: `dist/js/adminlte.min.js` and `dist/css/adminlte.min.css`
+- Your application-specific files
+
+**What NOT to Deploy:**
+- `node_modules/` directory
+- Demo/example HTML files (index.html, index2.html, index3.html, etc.)
+- Source files (`src/` directory)
+- Development configuration files
+
+**CVE-2021-36471 Notice:**
+This CVE is **disputed** and does not represent a vulnerability in AdminLTE. It refers to demo pages being accessible when developers incorrectly deploy example files to production. AdminLTE v4 has a clear separation between development demos and production assets. See [SECURITY.md](SECURITY.md) for complete details.
+
+**Production Build:**
+```bash
+npm run production  # Builds optimized assets in dist/
+```
+
+For detailed security guidelines, authentication requirements, and best practices, see [SECURITY.md](SECURITY.md).
 
 ## Sponsorship
 

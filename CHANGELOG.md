@@ -7,6 +7,149 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.0.0-rc7] - 2026-03-10
+
+### Added
+
+- **Sidebar Without Hover:** New `sidebar-without-hover` body class that prevents collapsed mini sidebar from expanding on hover (#5837)
+  - New demo page at `layout/collapsed-sidebar-without-hover.html`
+- **JavaScript Documentation:** Added documentation pages for all JS components
+  - Layout, Card Widget, Direct Chat, Fullscreen, and Accessibility modules
+  - Updated PushMenu documentation with configuration options and responsive behavior
+  - All 7 JS components now fully documented in the sidebar navigation
+- **Accessibility Module:** WCAG 2.1 AA compliance features (skip links, focus management, keyboard navigation, reduced motion, live announcements)
+- **Print Layout Fix:** Sidebar and main content now both visible when printing (#5996)
+
+### Changed
+
+- **Sidebar Persistence:** `enablePersistence` now defaults to `false` (was `true`). Opt in via `data-enable-persistence="true"` on `.app-sidebar`. **BREAKING CHANGE**
+- **Layout Plugin Refactor:** Single Layout instance with persistent hold-transition timer, proper cleanup on resize (#5956)
+- **PushMenu Plugin Refactor:** Single PushMenu instance with proper responsive logic, config from data attributes, mobile-aware state management (#5954)
+- **Login/Register Box:** Increased width from 360px to 400px (#5963)
+
+### Fixed
+
+- **Fixed Footer with Layout Fixed:** Footer now stays pinned at the bottom when using both `.fixed-footer` and `.layout-fixed` (#5805)
+- **Mobile Sidebar Scroll Chaining:** Added `overscroll-behavior: contain` to prevent page scroll when scrolling sidebar on mobile (#5864)
+- **Sidebar Flicker on Load:** Resolved by layout refactor fixing duplicate initialization and broken hold-transition timer (#5952)
+- **Bootstrap Modal Escape Key:** Accessibility module no longer intercepts Escape key when a Bootstrap modal is open (#5993)
+- **Pagination Border Radius:** Fixed `calc()` syntax in `_bootstrap-variables.scss` to match Bootstrap 5.3 format (#5951)
+- **slideUp/slideDown at Duration 0:** Added early return guard for zero/near-zero animation durations (#5964)
+- **TypeScript Comments in Build:** Added `removeComments: true` to tsconfig.json for smaller unminified bundles (#5953)
+
+### Updated
+
+- **Dependencies:** Updated all packages to latest semver-compatible versions
+  - astro: 5.x → 6.0.0
+  - @astrojs/mdx: 4.x → 5.0.0
+  - @astrojs/check: 0.9.6 → 0.9.7
+  - @rollup/plugin-typescript: 12.3.0 → 12.3.1
+  - @typescript-eslint/eslint-plugin: 8.48.1 → 8.50.0
+  - @typescript-eslint/parser: 8.48.1 → 8.50.0
+  - autoprefixer: 10.4.22 → 10.4.23
+  - eslint: 9.39.1 → 9.39.4
+  - postcss: 8.5.7 → 8.5.8
+  - rollup: 4.53.3 → 4.59.0
+  - sass: 1.94.2 → 1.97.3
+  - terser: 5.44.1 → 5.44.3
+  - typescript: 5.9.2 → 5.9.3
+- **Bundlewatch:** Updated adminlte.js size limit to 5.2 kB
+
+## [4.0.0-rc6] - 2025-12-08
+
+### Security
+
+- **Fixed 4 Security Vulnerabilities:** Resolved all npm audit security issues
+  - Fixed high severity reflected XSS vulnerability in Astro server islands
+  - Fixed moderate severity authentication bypass via url.pathname in Astro
+  - Fixed moderate severity stored XSS in Astro Cloudflare adapter /_image endpoint
+  - Fixed moderate severity unsanitized class attribute in mdast-util-to-hast
+  - All vulnerabilities resolved by updating to Astro 5.16.4+
+
+### Added
+
+- **Sidebar State Persistence:** New feature to remember sidebar collapsed/expanded state
+  - Sidebar state now persists across page refreshes using localStorage
+  - Configurable via `enablePersistence` option (default: `true`)
+  - SSR-safe implementation with proper environment checks
+  - Mobile-aware: doesn't restore state on small screens (respects responsive breakpoints)
+  - Graceful error handling for private browsing mode
+  - Storage key: `lte.sidebar.state`
+
+### Changed
+
+- **GitHub Actions:** Updated all workflows to Node.js 22 (from Node.js 18)
+  - Node.js 18 reached End-of-Life on April 30, 2025
+  - Node.js 22 is the current Active LTS (supported until April 2027)
+  - Updated `setup-node` action from v3 to v4 across all workflows
+  - Updated CodeQL actions from v2 to v3
+  - Added `FORCE_COLOR: 2` environment variable to codeql.yml for consistency
+
+### Fixed
+
+- **Release Workflow:** Fixed zip command in release.yml
+  - Corrected `-d` flag to `-r` for recursive directory zipping
+  - Fixed filename inconsistency in release artifacts
+- **Nested Card Expand Icon:** Fixed issue #5909 where nested collapsed cards didn't show expand icon
+  - Updated CSS selectors to use direct child (>) scoping for card state icons
+  - Collapse/expand icons now correctly display for nested cards independently
+  - Card body/footer display rules now only affect direct children, not nested cards
+- **Card Widget JavaScript:** Fixed nested card collapse/expand affecting child cards
+  - Added `:scope >` selector to only target direct card-body/footer children
+  - Prevents parent card collapse from affecting nested card animations
+
+### Updated
+
+- **Dependencies:** Updated 15+ packages to latest versions
+  - @astrojs/check: 0.9.5 → 0.9.6
+  - @astrojs/mdx: 4.3.9 → 4.3.12
+  - @rollup/plugin-typescript: 12.1.3 → 12.3.0
+  - @typescript-eslint/eslint-plugin: 8.46.2 → 8.48.1
+  - @typescript-eslint/parser: 8.46.2 → 8.48.1
+  - astro: 5.15.6 → 5.16.4 (includes security fixes)
+  - autoprefixer: 10.4.21 → 10.4.22
+  - eslint: 9.39.0 → 9.39.1
+  - eslint-plugin-astro: 1.4.0 → 1.5.0
+  - nodemon: 3.1.10 → 3.1.11
+  - prettier: 3.5.3 → 3.7.4
+  - rimraf: 6.1.0 → 6.1.2
+  - rollup: 4.52.4 → 4.53.3
+  - sass: 1.93.2 → 1.94.2
+  - stylelint: 16.25.0 → 16.26.1
+  - terser: 5.44.0 → 5.44.1
+
+## [4.0.0-rc5] - 2025-10-14
+
+### Updated
+- **Dependencies:** Updated 17+ packages to latest versions for improved security and performance
+  - @astrojs/mdx: 4.3.0 → 4.3.7
+  - @typescript-eslint/eslint-plugin: 8.36.0 → 8.46.1
+  - @typescript-eslint/parser: 8.36.0 → 8.46.1
+  - astro: 5.11.0 → 5.14.4
+  - bootstrap: 5.3.7 → 5.3.8
+  - concurrently: 9.2.0 → 9.2.1
+  - cross-env: 7.0.3 → 10.1.0 (major version)
+  - eslint: 9.30.1 → 9.37.0
+  - eslint-config-xo: 0.47.0 → 0.49.0
+  - eslint-config-xo-typescript: 8.0.1 → 9.0.0 (major version)
+  - eslint-plugin-unicorn: 59.0.1 → 61.0.2
+  - fs-extra: 11.3.0 → 11.3.2
+  - rollup: 4.44.2 → 4.52.4
+  - sass: 1.89.2 → 1.93.2
+  - stylelint: 16.21.1 → 16.25.0
+  - terser: 5.43.1 → 5.44.0
+  - typescript: 5.8.3 → 5.9.3
+
+### Fixed
+- **Security Vulnerabilities:** Resolved 2 security issues
+  - Fixed high severity DoS vulnerability in axios (updated to 0.30.2+)
+  - Fixed critical vulnerability in form-data random function (updated to 4.0.4+)
+
+### Removed
+- **Deprecated Files:** Removed `.eslintignore` file
+  - ESLint ignores are now properly configured in `eslint.config.js`
+  - Eliminates deprecation warnings in ESLint 9.x
+
 ## [4.0.0-rc4] - 2025-07-10
 
 ### Updated
