@@ -366,4 +366,4 @@ We welcome contributions to improve accessibility further. Please:
 
 ---
 
-**AdminLTE v4.0.0** - Now with comprehensive WCAG 2.1 AA accessibility compliance! 🎉 
+**AdminLTE v4.0.0** - Now with comprehensive WCAG 2.1 AA accessibility compliance! 🎉
